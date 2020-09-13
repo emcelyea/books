@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Books</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<style type="text/css">
+		.container {
+			margin-top: 76px;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<a class="navbar-brand">Books</a>
+	</nav>
+	<main role="main" class="container">
+	<div class="input-group mb-3">
+	  <div class="input-group-prepend">
+	    <button class="btn btn-outline-info active" id="authorBtn" type="button">Author</button>
+	    <button class="btn btn-outline-info" id="titleBtn" type="button">Title</button>
+	  </div>
+	  <input id="searchinput" type="text" class="form-control" placeholder="Search" aria-label="" aria-describedby="basic-addon1">
+		</div>
+	<div class="starter-template">
+	  <h2>Books</h2>
+	  <p class="lead">This is just a list of books</p>
+	</div>
+		<table class="table table-striped">
+		  <tbody id="books">
+		  </tbody>
+		</table>
+	</main>	
+<script type="text/javascript">
+	var books = [];
+	var searchType = '';
+	var search = '';
+	document.getElementById('searchinput').addEventListener('keyup', function(e){
+		search = e.target.value;
+		drawBooks();
+	});
+	document.getElementById('authorBtn').addEventListener('click', function(e) {
+		searchType = 'author';
+		document.getElementById('authorBtn').classList.add('active');
+		document.getElementById('titleBtn').classList.remove('active');
+		drawBooks();
+	});
+	document.getElementById('titleBtn').addEventListener('click', function(e) {
+		searchType = 'title';
+		document.getElementById('authorBtn').classList.remove('active');
+		document.getElementById('titleBtn').classList.add('active');
+		drawBooks();
+	});
+
+	function drawBooks() {
+		var list = document.getElementById('books');
+		list.innerHTML = '';
+		var drawbooks = [].concat(books);
+		if (search) {
+			drawbooks = drawbooks.filter(b => {
+				if (searchType === 'title') {
+					return b.title.toLowerCase().includes(search.toLowerCase());
+				} else {
+					return b.author.toLowerCase().includes(search.toLowerCase());
+				}
+			})
+		}
+		drawbooks.sort(function(a,b){
+			if (a.author > b.author) return 1;
+			return -1;
+		});
+		for (var i = 0; i < drawbooks.length; i++) {
+			addBook(drawbooks[i]);
+		}
+	}
+
+	function addBook(book) {
+		var list = document.getElementById('books');
+		var row = document.createElement('tr');
+		var title = document.createElement('td'); 
+		var author = document.createElement('td');
+		title.innerText = book.title;
+		author.innerText = book.author;
+		row.appendChild(title);
+		row.appendChild(author);
+		list.appendChild(row);
+	}
+		books = [{
+			"author": "Ray Bradbury",
+			"title": "The Martian Chronicles"
+		},
+		{
+			"author": "Jane Austen",
+			"title": "Pride and Prejudice"
+		},
+		{
+			"author": "Neal Asher",
+			"title": "Gridlinked"
+		},{
+			"author": "Neal Asher",
+			"title": "The Voyage of Sable Keech"
+		},{
+			"author": "Isaac Asimov",
+			"title": "I, Robot"
+		},{
+			"author": "Umberto Eco",
+			"title": "The Name of The Rose"
+		},{
+			"author": "Bret Easton Ellis",
+			"title": "American Psycho"
+		},{
+			"author": "Thomas Pynchon",
+			"title": "Bleeding Edge"
+		},{
+			"author": "Joseph Conrad",
+			"title": "Heart of Darkness"
+		},{
+			"author": "Alfred Bester",
+			"title": "The Stars my Destination"
+		},{
+			"author": "Tom Robbins",
+			"title": "Another Roadside Attraction"
+		},{
+			"author": "Tom Robbins",
+			"title": "Skinny Legs And All"
+		},{
+			"author": "Tom Robbins",
+			"title": "Jitterbug Perfume"
+		},{
+			"author": "Tom Robbins",
+			"title": "Even Cowgirls Get The Blues"
+		},{
+			"author": "Tom Robbins",
+			"title": "Villa Incognito"
+		},{
+			"author": "Robert Heinlein",
+			"title": "Starship Troopers"
+		},{
+			"author": "Gene Wolfe",
+			"title": "Lake Of The Long Sun"
+		},{
+			"author": "Gene Wolfe",
+			"title": "Litany Of The Long Sun"
+		},{
+			"author": "Ursula K. Le Guin",
+			"title": "The Dispossessed"
+		},{
+			"author": "Haruki Murakami",
+			"title": "Hard-Boiled Wonderland and The End Of The World"
+		},{
+			"author": "Haruki Murakami",
+			"title": "The Wind-up Bird Chronicle"
+		},{
+			"author": "William Goldman",
+			"title": "The Princess Bride"
+		},{
+			"author": "Haruki Murakami",
+			"title": "IQ84"
+		},{
+			"author": "Joe Haldeman",
+			"title": "The Forever War"
+		},{
+			"author": "Toni Morrison",
+			"title": "Beloved"
+		},{
+			"author": "William S. Burroughs",
+			"title": "Naked Lunch"
+		},{
+			"author": "Hugh Howey",
+			"title": "Wool"
+		},{
+			"author": "Lawrence Durrell",
+			"title": "The Alexandria Quartet"
+		},{
+			"author": "Virginia Woolf",
+			"title": "Mrs. Dalloway"
+		},{
+			"author": "Neal Asher",
+			"title": "The Skinner"
+		},{
+			"author": "Terry Pratchett",
+			"title": "Mort"
+		},{
+			"author": "Thomas Pynchon",
+			"title": "Inherent Vice"
+		},{
+			"author": "Jean Rhys",
+			"title": "Good Morning Midnight"
+		},{
+			"author": "Neal Asher",
+			"title": "Brass Man"
+		},{
+			"author": "Ian Banks",
+			"title": "Use Of Weapons"
+		},{
+			"author": "Ian Banks",
+			"title": "Against A Dark Background"
+		},{
+			"author": "Bill Bryson",
+			"title": "The Life and Times of the Thunderbolt Kid"
+		},{
+			"author": "Paolo Bacigalupi",
+			"title": "The Windup Girl"
+		},{
+			"author": "Neil Gaiman",
+			"title": "Neverwhere"
+		},{
+			"author": "Philip K. Dick",
+			"title": "The Man in the High Castle"
+		},{
+			"author": "Robertson Davies",
+			"title": "The Deptford Trilogy"
+		},{
+			"author": "Patrick Rothfuss",
+			"title": "The Name of The Wind"
+		},{
+			"author": "Patrick Rothfuss",
+			"title": "The Wise Man's Fear"
+		},{
+			"author": "Stephen King",
+			"title": "The Stand"
+		},{
+			"author": "JR Tolkien",
+			"title": "Smith of Wootton Major"
+		},{
+			"author": "Raymond Feist",
+			"title": "Magician: Apprentice"
+		},{
+			"author": "Raymond Feist",
+			"title": "Magician: Master"
+		},{
+			"author": "Raymond Feist",
+			"title": "Silverthorn"
+		},{
+			"author": "Raymond Feist",
+			"title": "A Darkness At Sethanon"
+		},{
+			"author": "Dan Simmons",
+			"title": "Hyperion"
+		},{
+			"author": "Dan Simmons",
+			"title": "The Fall Of Hyperion"
+		},{
+			"author": "Brian McClellan",
+			"title": "Promise Of Blood"
+		},{
+			"author": "N.K. Jemisin",
+			"title": "The Obelisk Gate"
+		},{
+			"author": "N.K. Jemisin",
+			"title": "The Stone Key"
+		},{
+			"author": "Michael Crichton",
+			"title": "Eaters Of The Dead"
+		},{
+			"author": "Dan Brown",
+			"title": "The Lost Symbol"
+		},{
+			"author": "George R.R. Martin",
+			"title": "Fire And Blood"
+		},{
+			"author": "Andy Weir",
+			"title": "Artemis"
+		},{
+			"author": "Pierce Brown",
+			"title": "Red Rising"
+		},{
+			"author": "Pierce Brown",
+			"title": "Golden Son"
+		},{
+			"author": "Pierce Brown",
+			"title": "Morning Star"
+		},{
+			"author": "N.K. Jemisin",
+			"title": "The Hundred Thousand Kingdowms"
+		},{
+			"author": "Larry Niven",
+			"title": "Ringworld"
+		},{
+			"author": "Gene Wolfe",
+			"title": "Home Fires"
+		},{
+			"author": "Gene Wolfe",
+			"title": "endangered species"
+		},{
+			"author": "Isaac Asimov",
+			"title": "Foundation And Empires"
+		},{
+			"author": "Isaac Asimov",
+			"title": "Second Foundation"
+		},{
+			"author": "Isaac Asimov",
+			"title": "Forward The Foundation"
+		},{
+			"author": "Neil Gaiman & Terry Pratchett",
+			"title": "Good Omens"
+		},{
+			"author": "Octavia E. Butler",
+			"title": "Lilith's Brood"
+		},{
+			"author": "Isaac Asimov",
+			"title": "Foundation's Edge"
+		},{
+			"author": "Isaac Asimov",
+			"title": "Foundation And Earth"
+		},{
+			"author": "Iain M. Banks",
+			"title": "Excession"
+		},{
+			"author": "Peter F. Hamilton",
+			"title": "Great North Road"
+		},{
+			"author": "Miles Cameron",
+			"title": "The Red Knight"
+		},{
+			"author": "Szilard Borbely",
+			"title": "The Dispossessed"
+		},{
+			"author": "Neal Asher",
+			"title": "Shadow Of The Scorpion"
+		},{
+			"author": "Neal Stephenson",
+			"title": "Cryptonomicon"
+		},{
+			"author": "Bill Watterson",
+			"title": "Homicidal Psycho Jungle Cat, A Calvin and Hobbes Collection"
+		},{
+			"author": "Ernest Hemingway",
+			"title": "The Old Man and The Sea"
+		},{
+			"author": "Gene Wolfe",
+			"title": "Calde Of The Long Sun"
+		},{
+			"author": "T.H. White",
+			"title": "The Once and Future King"
+		},{
+			"author": "Gene Wolfe",
+			"title": "Exodus From The Long Sun"
+		},{
+			"author": "Virginia Woolf",
+			"title": "To The Lighthouse"
+		},{
+			"author": "Jack Vance",
+			"title": "Dying Earth"
+		},{
+			"author": "Joe Abercrombie",
+			"title": "The Blade Itself"
+		},{
+			"author": "Paul Cornell",
+			"title": "London Falling"
+		},{
+			"author": "Rubem Fonseca",
+			"title": "High Art"
+		},{
+			"author": "Arthur Koestler",
+			"title": "Darkness at Noon"
+		},{
+			"author": "Bernard MacLaverty",
+			"title": "Cal"
+		},{
+			"author": "Laurence Durrell",
+			"title": "The Dark Labyrinth"
+		},{
+			"author": "David McCullough",
+			"title": "John Adams"
+		},{
+			"author": "Stephen King",
+			"title": "Different Seasons"
+		},{
+			"author": "N.K. Jemisin",
+			"title": "The Broken Kingdoms"
+		},{
+			"author": "Robert A. Heinlein",
+			"title": "Stranger in a Strange Land"
+		},{
+			"author": "Yan Martel",
+			"title": "Life of Pi"
+		},{
+			"author": "William Blake",
+			"title": "Selected Poetry"
+		},{
+			"author": "Christopher Marlowe",
+			"title": "Doctor Faustus"
+		},{
+			"author": "Theodore Sturgeon",
+			"title": "More Than Human"
+		},{
+			"author": "",
+			"title": "The Epic of Gilgamesh"
+		},{
+			"author": "Jack Vance",
+			"title": "The Green Pearl"
+		},{
+			"author": "Jack Vance",
+			"title": "Lyonesse"
+		},{
+			"author": "Jack Vance",
+			"title": "Madouc"
+		},{
+			"author": "Hannu Rajaniemi",
+			"title": "The Quantum Thief"
+		},{
+			"author": "Ursula K. Le Guin",
+			"title": "A Wizard of Earthsea"
+		},{
+			"author": "N.K. Jemisin",
+			"title": "The Kingdom of Gods"
+		},{
+			"author": "Sir Arthur Conan Doyle",
+			"title": "Sherlock Holmes"
+		},{
+			"author": "Robert Heinlein",
+			"title": "The Moon is a Harsh Mistress"
+		},{
+			"author": "Olaf Stapledon",
+			"title": "Last and First Men"
+		},{
+			"author": "Dalton Trumbo",
+			"title": "Johnny Got His Gun"
+		},{
+			"author": "Lawrence Durrell",
+			"title": "Nunquam"
+		},{
+			"author": "Lawrence Durrell",
+			"title": "Prospero's Cell"
+		},{
+			"author": "George R.R. Martin",
+			"title": "Clash of Kings"
+		}
+	];
+	drawBooks();
+	</script>
+</body>
+</html>
